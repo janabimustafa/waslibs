@@ -92,6 +92,7 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <Content Include="Assets\HtmlBlock\Sample.html" />
+    <Content Include="Assets\HtmlBlock\Sample2.html" />
     <Content Include="Assets\Images\BigFourSummerHeat.png" />
     <Content Include="Assets\Images\BisonBadlandsChillin.png" />
     <Content Include="Assets\Images\ColumbiaRiverGorge.png" />

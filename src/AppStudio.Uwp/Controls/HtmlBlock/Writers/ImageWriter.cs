@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -29,7 +31,6 @@ namespace AppStudio.Uwp.Controls.Html.Writers
             if (node != null && !string.IsNullOrEmpty(src))
             {
                 Uri uri;
-
                 if (Uri.TryCreate(src, UriKind.Absolute, out uri))
                 {
                     try
@@ -57,9 +58,11 @@ namespace AppStudio.Uwp.Controls.Html.Writers
             return null;
         }
 
+
+
         private static bool IsInline(HtmlFragment fragment)
         {
-            return fragment.Parent != null && fragment.Parent.Name == "p";
+            return fragment.Parent != null && (fragment.Parent.Name == "p" || fragment.Parent.Name == "span");
         }
 
         public override void ApplyStyles(DocumentStyle style, DependencyObject ctrl, HtmlFragment fragment)
@@ -69,7 +72,6 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                 ApplyImageStyles(ctrl as Viewbox, style.Img);
             }
         }
-
         private static Viewbox CreateImage(HtmlNode node, string src)
         {
             var viewbox = new Viewbox

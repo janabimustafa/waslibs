@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.Storage.Streams;
 
 namespace AppStudio.Uwp.Controls
 {
@@ -105,6 +106,7 @@ namespace AppStudio.Uwp.Controls
                 if (uri.IsAbsoluteUri)
                 {
                     var cachedUri = uri;
+                    byte[] base64;
                     if (uri.Scheme == "http" || uri.Scheme == "https")
                     {
                         SetProgress();
@@ -125,6 +127,21 @@ namespace AppStudio.Uwp.Controls
                     {
                         this.SetImageGif(cachedUri);
                     }
+                    else if (TryParseBase64(uri.ToString(), out base64))
+                    {
+                        using (var stream = new InMemoryRandomAccessStream())
+                        {
+                            using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
+                            {
+                                writer.WriteBytes(base64);
+                                writer.StoreAsync().GetResults();
+                            }
+
+                            BitmapImage img = new BitmapImage();
+                            img.SetSource(stream);
+                            this.SetImage(img);
+                        }
+                    }
                     else
                     {
                         this.SetImage(new BitmapImage(cachedUri));
@@ -144,7 +161,18 @@ namespace AppStudio.Uwp.Controls
             }
         }
         #endregion
-
+        private bool TryParseBase64(string src, out byte[] base64)
+        {
+            if (src.StartsWith("data:image/") && src.ToLower().Contains("base64"))
+            {
+                var base64Data = src.Substring(src.IndexOf(",") + 1);
+                var imagedata = Convert.FromBase64String(base64Data);
+                base64 = imagedata;
+                return true;
+            }
+            base64 = null;
+            return false;
+        }
         private async void RefreshSourceUri(Uri uri)
         {
             try

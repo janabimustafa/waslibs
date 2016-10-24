@@ -20,25 +20,32 @@ namespace AppStudio.Uwp.Controls.Html.Writers
         public override DependencyObject GetControl(HtmlFragment fragment)
         {
             var node = fragment as HtmlNode;
-            if (node != null && node.Attributes.ContainsKey("href"))
+            if (node != null)
             {
-                Hyperlink a = new Hyperlink();
-
-                Uri uri;
-
-                if (Uri.TryCreate(node.Attributes["href"], UriKind.Absolute, out uri))
+                if (node.Attributes.ContainsKey("href"))
                 {
-                    try
-                    {
-                        a.NavigateUri = uri;
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"Error loading a@href '{uri?.ToString()}': {ex.Message}");
-                    }
-                }
+                    Hyperlink a = new Hyperlink();
 
-                return a;
+                    Uri uri;
+
+                    if (Uri.TryCreate(node.Attributes["href"], UriKind.Absolute, out uri))
+                    {
+                        try
+                        {
+                            a.NavigateUri = uri;
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.WriteLine($"Error loading a@href '{uri?.ToString()}': {ex.Message}");
+                        }
+                    }
+
+                    return a;
+                }
+                else
+                {
+                    return new Underline();
+                }
             }
             return null;
         }

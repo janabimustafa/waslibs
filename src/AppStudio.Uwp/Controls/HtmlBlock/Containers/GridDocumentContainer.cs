@@ -73,7 +73,7 @@ namespace AppStudio.Uwp.Controls.Html.Containers
 
             if (textBlock == null)
             {
-                textBlock = new RichTextBlock();
+                textBlock = new RichTextBlock() { IsTextSelectionEnabled = false };
                 AddChild(textBlock);
             }
             return textBlock;

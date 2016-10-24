@@ -42,7 +42,7 @@ namespace AppStudio.Uwp.Controls.Html.Containers
                     var p = FindOrCreateParagraph(textBlock);
 
                     p.Inlines.Add(ctrl as Inline);
-                } 
+                }
             }
         }
 
@@ -68,7 +68,7 @@ namespace AppStudio.Uwp.Controls.Html.Containers
             var textBlock = grid?.GetChild<RichTextBlock>(0, grid.RowDefinitions.Count - 1);
             if (textBlock == null)
             {
-                textBlock = new RichTextBlock();
+                textBlock = new RichTextBlock() { IsTextSelectionEnabled = false };
                 AddChild(textBlock);
             }
             return textBlock;

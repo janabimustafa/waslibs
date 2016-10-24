@@ -52,6 +52,7 @@ namespace AppStudio.Uwp.Controls
         public TextStyle Cite { get; set; } = new TextStyle();
         public TextStyle I { get; set; } = new TextStyle();
         public TextStyle Em { get; set; } = new TextStyle();
+        public TextStyle U { get; set; } = new TextStyle();
         public TextStyle Mark { get; set; } = new TextStyle();
         public TextStyle Time { get; set; } = new TextStyle();
         public TextStyle Code { get; set; } = new TextStyle();
@@ -85,6 +86,7 @@ namespace AppStudio.Uwp.Controls
             Time.Reset(host);
             Code.Reset(host);
             Strong.Reset(host);
+            U.Reset(host);
         }
 
         public void Merge(params DocumentStyle[] styles)
@@ -139,6 +141,7 @@ namespace AppStudio.Uwp.Controls
                     Time.Merge(style.Time);
                     Code.Merge(style.Code);
                     Strong.Merge(style.Strong);
+                    U.Merge(style.U);
                 }
             }
         }

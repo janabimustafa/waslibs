@@ -159,6 +159,7 @@
     <Compile Include="Controls\HtmlBlock\Writers\HtmlWriterFactory.cs" />
     <Compile Include="Controls\HtmlBlock\Writers\IFrameVideoWriter.cs" />
     <Compile Include="Controls\HtmlBlock\Writers\ImageWriter.cs" />
+    <Compile Include="Controls\HtmlBlock\Writers\UWriter.cs" />
     <Compile Include="Controls\HtmlBlock\Writers\IWriter.cs" />
     <Compile Include="Controls\HtmlBlock\Writers\LabelWriter.cs" />
     <Compile Include="Controls\HtmlBlock\Writers\ListItemWriter.cs" />

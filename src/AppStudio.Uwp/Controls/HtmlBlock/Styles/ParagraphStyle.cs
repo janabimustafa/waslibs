@@ -23,7 +23,7 @@ namespace AppStudio.Uwp.Controls
             if (style != null)
             {
                 Margin = Margin.Merge(style.Margin);
-
+                Foreground = style.Foreground;
                 base.Merge(style);
             }
         }
