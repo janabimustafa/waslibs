@@ -44,6 +44,9 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                 }
                 else
                 {
+
+
+
                     return new Underline();
                 }
             }
@@ -53,6 +56,20 @@ namespace AppStudio.Uwp.Controls.Html.Writers
         public override void ApplyStyles(DocumentStyle style, DependencyObject ctrl, HtmlFragment fragment)
         {
             ApplyTextStyles(ctrl as Span, style.A);
+        }
+
+        internal Dictionary<string, TextPointer> ApplyAnchorStyles(DocumentStyle style, DependencyObject ctrl, HtmlFragment fragment)
+        {
+            Dictionary<string, TextPointer> dict = new Dictionary<string, TextPointer>();
+            var node = fragment as HtmlNode;
+            if (node != null && ctrl is Underline)
+            {
+                var underline = ctrl as Underline;
+                if (node.Attributes.ContainsKey("id") && node.Attributes.ContainsKey("name"))
+                    dict[node.Attributes["name"]] = underline.ContentStart;
+            }
+            ApplyTextStyles(ctrl as Span, style.A);
+            return dict;
         }
     }
 }

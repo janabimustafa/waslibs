@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:was="using:AppStudio.Uwp.Controls">
+    xmlns:was="using:AppStudio.Uwp.Controls"
+    xmlns:converters="using:AppStudio.Uwp.Converters">
     <was:ContainerStyle x:Key="Div" Margin="0" />
     <was:ContainerStyle x:Key="Section" Margin="0" />
     <was:ContainerStyle x:Key="Article" Margin="0" />
@@ -44,11 +45,19 @@
     <was:TextStyle x:Key="Mark" FontWeight="SemiBold" />
     <was:TableStyle x:Key="Table" Border="0" Margin="0,12,0,12" HorizontalAlignment="Center" ColumnWidth="*" />
     <was:ContainerStyle x:Key="Td" Margin="0" Padding="6"></was:ContainerStyle>
+    <converters:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
     <Style TargetType="was:HtmlBlock">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="was:HtmlBlock">
-                    <Grid Padding="{TemplateBinding Padding}" x:Name="_container" Background="{TemplateBinding Background}"></Grid>
+                    <Grid Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid x:Name="_container" Grid.Column="1"></Grid>
+                        <Canvas Opacity=".5" Width="30" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=IsLineNumbersEnabled, Converter={StaticResource boolToVisibilityConverter}}" x:Name="_lineNumCanvas"/>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

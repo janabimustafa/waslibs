@@ -11,6 +11,9 @@ namespace AppStudio.Uwp.Controls.Html.Containers
 {
     class GridDocumentContainer : DocumentContainer<Grid>
     {
+        public int LineHeight { get; set; }
+        public RichTextBlock TextBlock { get; set; }
+        public Dictionary<string, TextPointer> ReferenceTextBlockAnchors { get; set; }
         public GridDocumentContainer(Grid ctrl) : base(ctrl)
         {
         }
@@ -28,14 +31,13 @@ namespace AppStudio.Uwp.Controls.Html.Containers
             }
             else if (ctrl is Block)
             {
-                var textBlock = FindOrCreateTextBlock();
-
-                textBlock.Blocks.Add(ctrl as Block);
+                TextBlock = FindOrCreateTextBlock();
+                TextBlock.Blocks.Add(ctrl as Block);
             }
             else if (ctrl is Inline)
             {
-                var textBlock = FindOrCreateTextBlock();
-                var p = FindOrCreateParagraph(textBlock);
+                TextBlock = FindOrCreateTextBlock();
+                var p = FindOrCreateParagraph(TextBlock);
 
                 p.Inlines.Add(ctrl as Inline);
             }
@@ -73,7 +75,7 @@ namespace AppStudio.Uwp.Controls.Html.Containers
 
             if (textBlock == null)
             {
-                textBlock = new RichTextBlock() { IsTextSelectionEnabled = false };
+                textBlock = new RichTextBlock() { IsTextSelectionEnabled = false, LineHeight = LineHeight };
                 AddChild(textBlock);
             }
             return textBlock;
