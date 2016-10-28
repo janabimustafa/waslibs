@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace AppStudio.Uwp.Controls.Html.Writers
 {
@@ -23,7 +24,7 @@ namespace AppStudio.Uwp.Controls.Html.Writers
             {
                 return new Run
                 {
-                    Text = text.Content
+                    Text = text.Content,                                        
                 };
             }
             return null;
@@ -44,12 +45,36 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                         if (referenceAnchors.ContainsKey(lineRef))
                         {
                             var rect = referenceAnchors[lineRef].GetCharacterRect(referenceAnchors[lineRef].LogicalDirection);
-                            run.Text = (Math.Round(rect.Top / referenceBlock.LineHeight)).ToString();
+                            double height = rect.Top - (GetImagesHeight(referenceBlock));
+                            run.Text = (Math.Round(height / referenceBlock.LineHeight)).ToString();
                         }
                     }
 
                 }
             }
+        }
+
+        private double GetImagesHeight(HtmlBlock referenceBlock)
+        {
+            double height = 0;
+            foreach (var block in referenceBlock.documentContainer.TextBlock.Blocks)
+            {
+                if (block is Paragraph)
+                {
+                    var paragraph = block as Paragraph;
+                    foreach (var inline in paragraph.Inlines)
+                    {
+                        if (inline is InlineUIContainer && ((InlineUIContainer)inline)?.Child is Viewbox)
+                        {
+                            //var endTop = inline.ContentEnd.GetCharacterRect(inline.ContentEnd.LogicalDirection).Top;
+                            var start = inline.ContentStart.GetCharacterRect(inline.ContentStart.LogicalDirection);
+                            height += (start.Height);
+                        }
+                    }
+                }
+
+            }
+            return height;
         }
     }
 }

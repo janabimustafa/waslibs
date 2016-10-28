@@ -41,7 +41,7 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                         {
                             return new InlineUIContainer
                             {
-                                Child = viewbox                              
+                                Child = viewbox                                                            
                             };
                         }
                         else

@@ -23,7 +23,7 @@ namespace AppStudio.Uwp.Controls
     {
         public Grid _container;
         private Canvas _lineNumCanvas;
-        private GridDocumentContainer documentContainer;
+        public GridDocumentContainer documentContainer;
         private DocumentStyle _docStyles;
         private HtmlDocument _doc;
         private SemaphoreSlim _writeSema = new SemaphoreSlim(1, 1);

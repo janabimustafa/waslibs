@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Documents;
 
 namespace AppStudio.Uwp.Controls.Html.Containers
 {
-    abstract class DocumentContainer
+    public abstract class DocumentContainer
     {
         public DocumentContainer Parent { get; private set; }
         public abstract bool CanContain(DependencyObject ctrl);
@@ -74,7 +74,7 @@ namespace AppStudio.Uwp.Controls.Html.Containers
         }
     }
 
-    abstract class DocumentContainer<T> : DocumentContainer where T : DependencyObject
+    public abstract class DocumentContainer<T> : DocumentContainer where T : DependencyObject
     {
         public T Control { get; private set; }
 

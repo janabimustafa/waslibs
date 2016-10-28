@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml;
 using System.Diagnostics;
+using Windows.UI.Xaml.Media;
+using Windows.UI;
 
 namespace AppStudio.Uwp.Controls.Html.Writers
 {
@@ -44,9 +46,6 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                 }
                 else
                 {
-
-
-
                     return new Underline();
                 }
             }
@@ -67,6 +66,8 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                 var underline = ctrl as Underline;
                 if (node.Attributes.ContainsKey("id") && node.Attributes.ContainsKey("name"))
                     dict[node.Attributes["name"]] = underline.ContentStart;
+                if (node.Attributes.ContainsKey("class") && node.Attributes["class"].Contains("question-marker"))
+                    underline.Foreground = new SolidColorBrush(Colors.DarkBlue);
             }
             ApplyTextStyles(ctrl as Span, style.A);
             return dict;

@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Documents;
 
 namespace AppStudio.Uwp.Controls.Html.Containers
 {
-    class GridDocumentContainer : DocumentContainer<Grid>
+    public class GridDocumentContainer : DocumentContainer<Grid>
     {
         public int LineHeight { get; set; }
         public RichTextBlock TextBlock { get; set; }
