@@ -41,7 +41,7 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                         {
                             return new InlineUIContainer
                             {
-                                Child = viewbox                                                            
+                                Child = viewbox
                             };
                         }
                         else
@@ -97,6 +97,7 @@ namespace AppStudio.Uwp.Controls.Html.Writers
                 Stretch = Stretch.Uniform,
                 Background = new SolidColorBrush(Colors.Transparent),
                 Foreground = new SolidColorBrush(Colors.Transparent),
+                Margin = new Thickness(0, 0, 0, -10),
                 AnimateGif = true
             };
             return viewbox;
